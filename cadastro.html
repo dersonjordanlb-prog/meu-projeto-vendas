@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta - Meu Sistema</title>
+    <!-- Se você tiver um arquivo CSS, ele liga aqui -->
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; padding: 50px; background: #f4f4f4; }
+        .login-container { background: white; padding: 30px; border-radius: 8px; shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        input { display: block; width: 100%; margin-bottom: 10px; padding: 10px; }
+        button { width: 100%; padding: 10px; background: #28a745; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Criar Nova Conta</h2>
+        <input type="email" id="email" placeholder="Seu melhor e-mail">
+        <input type="password" id="password" placeholder="Crie uma senha (mín. 6 dígitos)">
+        <button id="btnCadastrar">Cadastrar e Iniciar</button>
+        <p>Já tem conta? <a href="index.html">Fazer Login</a></p>
+    </div>
+
+    <!-- O CÓDIGO DO FIREBASE QUE VOCÊ ME PASSOU FICA AQUI EMBAIXO -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDRGyFAEcTRagke7LcQKIeGzl07mQbZVro",
+            authDomain: "meusistemalogin-d74e9.firebaseapp.com",
+            projectId: "meusistemalogin-d74e9",
+            storageBucket: "meusistemalogin-d74e9.firebasestorage.app",
+            messagingSenderId: "260496003658",
+            appId: "1:260496003658:web:705567a2e3e23937000cb3",
+            measurementId: "G-NMGG5EY6J9"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        document.getElementById('btnCadastrar').addEventListener('click', async () => {
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('password').value;
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
+                const user = userCredential.user;
+
+                // Salva no banco que o usuário não tem licença ainda
+                await setDoc(doc(db, "usuarios", user.uid), {
+                    email: email,
+                    temLicenca: false, 
+                    dataCadastro: new Date()
+                });
+
+                alert("Conta criada com sucesso! Agora você já existe no banco de dados.");
+                window.location.href = "index.html"; 
+
+            } catch (error) {
+                alert("Erro: " + error.message);
+            }
+        });
+    </script>
+</body>
+</html>

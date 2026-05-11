@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Ativar Licença</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="card">
+        <div id="status" class="status-topo">Verificando usuário...</div>
+        
+        <div id="blocoAtivacao">
+            <h1>Ative sua Licença</h1>
+            <p style="margin-bottom: 20px; color: #666;">Insira o código que você recebeu após a compra para liberar o acesso:</p>
+            
+            <input type="text" id="chaveInput" placeholder="Ex: LICENCA-2026-XYZ">
+            
+            <button id="btnAtivar">Ativar Agora</button>
+            
+            <button onclick="window.location.href='dashboard.html'" class="btn-secondary">Voltar</button>
+        </div>
+    </div>
+
+    <script type="module">
+        // 1. Importamos as ferramentas necessárias para buscar e deletar chaves
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+        import { getFirestore, doc, updateDoc, collection, query, where, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDRGyFAEcTRagke7LcQKIeGzl07mQbZVro",
+            authDomain: "meusistemalogin-d74e9.firebaseapp.com",
+            projectId: "meusistemalogin-d74e9",
+            storageBucket: "meusistemalogin-d74e9.firebasestorage.app",
+            messagingSenderId: "260496003658",
+            appId: "1:260496003658:web:705567a2e3e23937000cb3",
+            measurementId: "G-NMGG5EY6J9"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        onAuthStateChanged(auth, (user) => {
+            const statusDiv = document.getElementById('status');
+            if (user) {
+                statusDiv.innerHTML = "Logado como: <strong>" + user.email + "</strong>";
+            } else {
+                window.location.href = "index.html";
+            }
+        });
+
+        document.getElementById('btnAtivar').addEventListener('click', async () => {
+            const chaveDigitada = document.getElementById('chaveInput').value;
+            const btn = document.getElementById('btnAtivar');
+
+            // Desativa o botão para o usuário não clicar duas vezes
+            btn.disabled = true;
+            btn.innerText = "Verificando...";
+
+            try {
+                // 2. Procuramos na coleção "chaves" se existe o código digitado
+                const q = query(collection(db, "chaves"), where("codigo", "==", chaveDigitada));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    // A chave existe! Vamos pegar o documento dela
+                    const docChave = querySnapshot.docs[0];
+                    const user = auth.currentUser;
+                    const userRef = doc(db, "usuarios", user.uid);
+
+                    // 3. Atualizamos o usuário para ter licença (true)
+                    await updateDoc(userRef, { temLicenca: true });
+
+                    // 4. DELETAMOS a chave do banco para que ninguém mais use a mesma
+                    await deleteDoc(doc(db, "chaves", docChave.id));
+
+                    alert("✅ Licença ativada! Esta chave foi inutilizada.");
+                    window.location.href = "dashboard.html";
+                } else {
+                    alert("❌ Chave inválida ou já utilizada por outra pessoa.");
+                    btn.disabled = false;
+                    btn.innerText = "Ativar Agora";
+                }
+            } catch (error) {
+                console.error(error);
+                alert("Erro ao processar ativação. Verifique sua conexão.");
+                btn.disabled = false;
+                btn.innerText = "Ativar Agora";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Dashboard - Área Restrita</title>
+    <style>
+        body { font-family: sans-serif; background: #f0f2f5; padding: 20px; }
+        .card { background: white; padding: 20px; border-radius: 10px; max-width: 600px; margin: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .bloqueado { display: none; text-align: center; color: #721c24; background: #f8d7da; padding: 20px; border-radius: 8px; border: 1px solid #f5c6cb; }
+        .liberado { display: none; color: #155724; }
+        button { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div id="areaBloqueada" class="bloqueado">
+            <h1>Acesso Negado 🔒</h1>
+            <p>Identificamos que você ainda não possui uma licença ativa para usar este sistema.</p>
+            <p>Se você já comprou, clique no botão abaixo para inserir seu código:</p>
+            
+            <button onclick="window.location.href='ativar.html'">Ativar Minha Licença</button>
+            
+            <p><small>Ainda não comprou? <a href="https://link-do-seu-mercado-pago.com" target="_blank">Clique aqui para pagar</a></small></p>
+        </div>
+
+        <div id="areaLiberada" class="liberated">
+            <h1>Bem-vindo à sua Dashboard! ✅</h1>
+            <p>Sua licença está ativa. Aqui você tem acesso a todas as ferramentas exclusivas.</p>
+            <hr>
+            <p><strong>Conteúdo Premium:</strong> [Sua ferramenta ou conteúdo aqui]</p>
+        </div>
+        
+        <br>
+        <button onclick="logout()" style="background: #6c757d;">Sair</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDRGyFAEcTRagke7LcQKIeGzl07mQbZVro",
+            authDomain: "meusistemalogin-d74e9.firebaseapp.com",
+            projectId: "meusistemalogin-d74e9",
+            storageBucket: "meusistemalogin-d74e9.firebasestorage.app",
+            messagingSenderId: "260496003658",
+            appId: "1:260496003658:web:705567a2e3e23937000cb3",
+            measurementId: "G-NMGG5EY6J9"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const docRef = doc(db, "usuarios", user.uid);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const dados = docSnap.data();
+
+                    if (dados.temLicenca === true) {
+                        // Se o Firebase diz que é true, mostra a área verde
+                        document.getElementById('areaLiberada').style.display = 'block';
+                        document.getElementById('areaBloqueada').style.display = 'none';
+                    } else {
+                        // Se for false, mostra a área vermelha
+                        document.getElementById('areaBloqueada').style.display = 'block';
+                        document.getElementById('areaLiberada').style.display = 'none';
+                    }
+                }
+            } else {
+                window.location.href = "index.html";
+            }
+        });
+
+        window.logout = () => {
+            signOut(auth).then(() => { window.location.href = "index.html"; });
+        }
+    </script>
+</body>
+</html>

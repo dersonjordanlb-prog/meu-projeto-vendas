@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Login - Meu Sistema</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; padding: 50px; background: #f4f4f4; }
+        .login-container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        input { display: block; width: 100%; margin-bottom: 10px; padding: 10px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Entrar no Sistema</h2>
+        <input type="email" id="email" placeholder="Seu e-mail">
+        <input type="password" id="password" placeholder="Sua senha">
+        <button id="btnLogin">Entrar</button>
+        <p>Não tem conta? <a href="cadastro.html">Criar conta</a></p>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDRGyFAEcTRagke7LcQKIeGzl07mQbZVro",
+            authDomain: "meusistemalogin-d74e9.firebaseapp.com",
+            projectId: "meusistemalogin-d74e9",
+            storageBucket: "meusistemalogin-d74e9.firebasestorage.app",
+            messagingSenderId: "260496003658",
+            appId: "1:260496003658:web:705567a2e3e23937000cb3",
+            measurementId: "G-NMGG5EY6J9"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.getElementById('btnLogin').addEventListener('click', async () => {
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('password').value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, senha);
+                alert("Login realizado! Indo para a Dashboard...");
+                window.location.href = "dashboard.html"; // Ele vai tentar ir para cá
+            } catch (error) {
+                alert("Erro ao entrar: Verifique e-mail e senha.");
+            }
+        });
+    </script>
+</body>
+</html>
