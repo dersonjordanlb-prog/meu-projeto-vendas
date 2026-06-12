@@ -1,55 +1,143 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head><link rel="stylesheet" href="style.css">
+<head>
     <meta charset="UTF-8">
-    <title>Login - Meu Sistema</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lopes Brandão - Conhecimento & Liberdade</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; padding: 50px; background: #f4f4f4; }
-        .login-container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        input { display: block; width: 100%; margin-bottom: 10px; padding: 10px; box-sizing: border-box; }
-        button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; }
-        button:hover { background: #0056b3; }
+        /* Estilo Dark e Moderno */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #0d1117; 
+            color: #c9d1d9; 
+            margin: 0; 
+            padding: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            background: #161b22;
+            border-bottom: 1px solid #30363d;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #deff9a; /* Tom verde/neon exclusivo */
+            font-size: 24px;
+        }
+
+        .vitrine-container { 
+            max-width: 800px; 
+            width: 90%; 
+            padding: 40px 20px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .produto-card { 
+            background: #161b22; 
+            padding: 30px; 
+            border-radius: 12px; 
+            border: 1px solid #30363d;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5); 
+            text-align: center;
+            max-width: 450px;
+            transition: transform 0.2s;
+        }
+
+        .produto-card:hover {
+            transform: translateY(-5px);
+            border-color: #deff9a;
+        }
+
+        /* Espaço para simular a capa do teu livro/produto */
+        .produto-capa {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #21262d, #0d1117);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #30363d;
+        }
+
+        .produto-capa span {
+            font-size: 50px;
+        }
+
+        h2 { color: #ffffff; margin-top: 0; font-size: 22px; }
+        
+        .descricao { 
+            color: #8b949e; 
+            font-size: 15px; 
+            line-height: 1.6; 
+            margin-bottom: 25px; 
+        }
+
+        .preco {
+            font-size: 24px;
+            color: #deff9a;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .btn-comprar { 
+            display: inline-block;
+            width: 100%; 
+            padding: 14px; 
+            background: #deff9a; 
+            color: #0d1117; 
+            border: none; 
+            border-radius: 6px;
+            font-size: 16px; 
+            font-weight: bold;
+            cursor: pointer; 
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-comprar:hover { 
+            background: #bdde79; 
+        }
     </style>
 </head>
 <body>
 
-    <div class="login-container">
-        <h2>Entrar no Sistema</h2>
-        <input type="email" id="email" placeholder="Seu e-mail">
-        <input type="password" id="password" placeholder="Sua senha">
-        <button id="btnLogin">Entrar</button>
-        <p>Não tem conta? <a href="cadastro.html">Criar conta</a></p>
+    <header>
+        <h1>Lopes Brandão • Portal Oficial</h1>
+    </header>
+
+    <div class="vitrine-container">
+        <div class="produto-card">
+            <div class="produto-capa">
+                <span>📚</span>
+            </div>
+            <h2>Edições de fotos e Videos Afeter Efects/ CapCut</h2>
+            <p class="descricao">
+                Acede aos meus pensamentos exclusivos, estratégias de liberdade e conhecimentos que não são ensinados na escola. Um guia prático para quem quer construir o próprio sucesso em silêncio.
+            </p>
+            <div class="preco">R$ 47,00</div>
+            
+            <button class="btn-comprar" onclick="irParaCadastro()">Quero Acesso Imediato</button>
+        </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDRGyFAEcTRagke7LcQKIeGzl07mQbZVro",
-            authDomain: "meusistemalogin-d74e9.firebaseapp.com",
-            projectId: "meusistemalogin-d74e9",
-            storageBucket: "meusistemalogin-d74e9.firebasestorage.app",
-            messagingSenderId: "260496003658",
-            appId: "1:260496003658:web:705567a2e3e23937000cb3",
-            measurementId: "G-NMGG5EY6J9"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        document.getElementById('btnLogin').addEventListener('click', async () => {
-            const email = document.getElementById('email').value;
-            const senha = document.getElementById('password').value;
-
-            try {
-                await signInWithEmailAndPassword(auth, email, senha);
-                alert("Login realizado! Indo para a Dashboard...");
-                window.location.href = "dashboard.html"; // Ele vai tentar ir para cá
-            } catch (error) {
-                alert("Erro ao entrar: Verifique e-mail e senha.");
-            }
-        });
+    <script>
+        function irParaCadastro() {
+            // Guarda a informação de que o cliente quer comprar o Produto 1
+            localStorage.setItem('intencao_compra', 'true');
+            // Redireciona para a página de registo/cadastro
+            window.location.href = "cadastro.html";
+        }
     </script>
 </body>
 </html>
