@@ -1,15 +1,79 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
-    <title>Dashboard - Área Restrita</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel VIP - Lopes Brandão</title>
     <style>
-        body { font-family: sans-serif; background: #f0f2f5; padding: 20px; }
-        .card { background: white; padding: 20px; border-radius: 10px; max-width: 600px; margin: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .bloqueado { display: none; text-align: center; color: #721c24; background: #f8d7da; padding: 20px; border-radius: 8px; border: 1px solid #f5c6cb; }
-        .liberado { display: none; color: #155724; }
-        button { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #0d1117; 
+            color: #c9d1d9; 
+            padding: 20px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .card { 
+            background: #161b22; 
+            padding: 40px 30px; 
+            border-radius: 12px; 
+            max-width: 550px; 
+            width: 100%;
+            margin: auto; 
+            border: 1px solid #30363d;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5); 
+            text-align: center;
+        }
+        .bloqueado { 
+            display: none; 
+            color: #ff7b72; 
+            background: rgba(255, 123, 114, 0.1); 
+            padding: 25px; 
+            border-radius: 8px; 
+            border: 1px solid #ff7b72; 
+        }
+        .liberado { 
+            display: none; 
+            color: #58a6ff; 
+        }
+        .box-premium {
+            background: #21262d;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #30363d;
+            margin: 20px 0;
+        }
+        h1 { margin-top: 0; font-size: 26px; }
+        p { line-height: 1.6; color: #8b949e; font-size: 15px; }
+        
+        button { 
+            background: #deff9a; 
+            color: #0d1117; 
+            border: none; 
+            padding: 12px 24px; 
+            border-radius: 6px; 
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer; 
+            transition: background 0.2s;
+            width: 100%;
+        }
+        button:hover { background: #bdde79; }
+        
+        .btn-sair {
+            background: transparent;
+            color: #ff7b72;
+            border: 1px solid #ff7b72;
+            margin-top: 15px;
+        }
+        .btn-sair:hover {
+            background: rgba(255, 123, 114, 0.1);
+        }
+        a { color: #deff9a; text-decoration: none; }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -17,22 +81,27 @@
     <div class="card">
         <div id="areaBloqueada" class="bloqueado">
             <h1>Acesso Negado 🔒</h1>
-            <p>Identificamos que você ainda não possui uma licença ativa para usar este sistema.</p>
-            <p>Se você já comprou, clique no botão abaixo para inserir seu código:</p>
+            <p>Identificamos que a tua conta ainda não possui uma licença ativa para aceder a este conteúdo.</p>
+            <p>Se já fizeste o pagamento e recebeste o teu código, clica abaixo para o ativar:</p>
             
             <button onclick="window.location.href='ativar.html'">Ativar Minha Licença</button>
             
-            <p><small>Ainda não comprou? <a href="https://link-do-seu-mercado-pago.com" target="_blank">Clique aqui para pagar</a></small></p>
+            <p><small>Ainda não comprou? <a href="index.html">Voltar para a Vitrina de Produtos</a></small></p>
         </div>
 
-        <div id="areaLiberada" class="liberated">
-            <h1>Bem-vindo à sua Dashboard! ✅</h1>
-            <p>Sua licença está ativa. Aqui você tem acesso a todas as ferramentas exclusivas.</p>
-            <hr>
-            <p><strong>Conteúdo Premium:</strong> [ Olá Agradeço por fazer compras, aproveite tudo] </div>
+        <div id="areaLiberada" class="liberado">
+            <h1 style="color: #deff9a;">Painel VIP Desbloqueado! ✅</h1>
+            <p>A tua licença está ativa e o teu acesso está totalmente garantido.</p>
+            
+            <div class="box-premium">
+                <h3 style="color: #ffffff; margin-top: 0;">Conteúdo Premium:</h3>
+                <p style="color: #ffffff; font-size: 16px; font-style: italic;">
+                    "Olá! Agradeço por fazer compras, aproveite tudo."
+                </p>
+                </div>
+        </div>
         
-        <br>
-        <button onclick="logout()" style="background: #6c757d;">Sair</button>
+        <button onclick="logout()" class="btn-sair">Sair da Conta</button>
     </div>
 
     <script type="module">
@@ -63,16 +132,17 @@
                     const dados = docSnap.data();
 
                     if (dados.temLicenca === true) {
-                        // Se o Firebase diz que é true, mostra a área verde
+                        // Se o Firebase diz que é true, mostra a área premium
                         document.getElementById('areaLiberada').style.display = 'block';
                         document.getElementById('areaBloqueada').style.display = 'none';
                     } else {
-                        // Se for false, mostra a área vermelha
+                        // Se for false, mostra a mensagem de bloqueio
                         document.getElementById('areaBloqueada').style.display = 'block';
                         document.getElementById('areaLiberada').style.display = 'none';
                     }
                 }
             } else {
+                // Se não estiver logado, joga para a vitrina inicial
                 window.location.href = "index.html";
             }
         });
