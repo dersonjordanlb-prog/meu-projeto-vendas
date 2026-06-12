@@ -1,48 +1,77 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Conta - Meu Sistema</title>
-    <!-- Se você tiver um arquivo CSS, ele liga aqui -->
+    <title>Criar Conta - Lopes Brandão</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; padding: 50px; background: #f4f4f4; }
-        .login-container { background: white; padding: 30px; border-radius: 8px; shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        input { display: block; width: 100%; margin-bottom: 10px; padding: 10px; }
-        button { width: 100%; padding: 10px; background: #28a745; color: white; border: none; cursor: pointer; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 20px; 
+            background: #0d1117; 
+            color: #c9d1d9;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .login-container { 
+            background: #161b22; 
+            padding: 40px 30px; 
+            border-radius: 12px; 
+            border: 1px solid #30363d;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5); 
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h2 { color: #ffffff; margin-top: 0; font-size: 24px; margin-bottom: 20px; }
+        input { 
+            display: block; 
+            width: 100%; 
+            margin-bottom: 15px; 
+            padding: 12px; 
+            box-sizing: border-box; 
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 15px;
+        }
+        input:focus {
+            border-color: #deff9a;
+            outline: none;
+        }
+        button { 
+            width: 100%; 
+            padding: 14px; 
+            background: #deff9a; 
+            color: #0d1117; 
+            border: none; 
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer; 
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+        button:hover { background: #bdde79; }
+        p { color: #8b949e; font-size: 14px; margin-top: 20px; }
+        a { color: #deff9a; text-decoration: none; }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
-<body> </head>
-<body> <div id="areaLiberada" style="display: none;">
-        
-        <div style="text-align: center; padding: 40px; font-family: sans-serif;">
-            <h1 style="color: #deff9a;">🔓 Portal da Independência</h1>
-            
-            <div style="background: #1a1a1a; padding: 30px; border-radius: 15px; border: 1px solid #deff9a; margin: 20px auto; max-width: 500px;">
-                <h2 style="color: #ffffff;">Bem-vindo ao Círculo Restrito</h2>
-                <p style="color: #daffde; font-size: 18px; line-height: 1.6;">
-                    "Este é o seu primeiro passo para a liberdade. Aqui seus pensamentos e planos estão seguros."
-                </p>
-            </div>
-        </div>
-
-    </div>
-    <script>
-       // ... código que você já tem ...
-    </script>
-</body>
-</html>
+<body>
 
     <div class="login-container">
         <h2>Criar Nova Conta</h2>
         <input type="email" id="email" placeholder="Seu melhor e-mail">
         <input type="password" id="password" placeholder="Crie uma senha (mín. 6 dígitos)">
-        <button id="btnCadastrar">Cadastrar e Iniciar</button>
-        <p>Já tem conta? <a href="index.html">Fazer Login</a></p>
+        <button id="btnCadastrar">Cadastrar e Ir para Pagamento</button>
+        <p>Já tem conta e chave? <a href="ativar.html">Ativar Acesso</a></p>
     </div>
 
-    <!-- O CÓDIGO DO FIREBASE QUE VOCÊ ME PASSOU FICA AQUI EMBAIXO -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
@@ -66,22 +95,30 @@
             const email = document.getElementById('email').value;
             const senha = document.getElementById('password').value;
 
+            if(!email || !senha) {
+                alert("Por favor, preencha todos os campos.");
+                return;
+            }
+
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
                 const user = userCredential.user;
 
-                // Salva no banco que o usuário não tem licença ainda
+                // Salva no seu Firebase que este usuário acabou de se cadastrar
                 await setDoc(doc(db, "usuarios", user.uid), {
                     email: email,
                     temLicenca: false, 
                     dataCadastro: new Date()
                 });
 
-                alert("Conta criada com sucesso! Agora você já existe no banco de dados.");
-                window.location.href = "index.html"; 
+                alert("Conta criada com sucesso! Redirecionando para o pagamento...");
+                
+                // MUDANÇA DO SEU NOVO FLUXO: Envia direto para o seu WhatsApp com mensagem pronta
+                // Lembra de trocar o número abaixo pelo teu número real com código do país!
+                window.location.href = "https://wa.me/351933093835?text=Olá%20Derson,%20já%20criei%20a%20minha%20conta%20com%20o%20e-mail%20" + encodeURIComponent(email) + ".%20Quero%20fazer%20o%20pagamento%20para%20receber%20a%20minha%20chave!"; 
 
             } catch (error) {
-                alert("Erro: " + error.message);
+                alert("Erro ao cadastrar: " + error.message);
             }
         });
     </script>
