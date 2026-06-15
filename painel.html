@@ -2,18 +2,110 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Painel VIP - Lopes Brandão</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel VIP - Download de Arquivos</title>
     <style>
-        body { background: #0d1117; color: #ffffff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .box { background: #161b22; padding: 40px; border-radius: 12px; border: 1px solid #deff9a; text-align: center; }
-        h1 { color: #deff9a; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #0d1117; 
+            color: #c9d1d9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+        .header h1 { color: #deff9a; font-size: 28px; margin-bottom: 5px; }
+        .header p { color: #8b949e; margin: 0; font-size: 14px; }
+        
+        .grid-produtos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 900px;
+        }
+        
+        .card-produto {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card-produto:hover {
+            transform: translateY(-5px);
+            border-color: #deff9a;
+        }
+        
+        .preview-media {
+            width: 100%;
+            height: 160px;
+            background: #0d1117;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            object-fit: cover;
+            border: 1px solid #21262d;
+        }
+        
+        .card-produto h3 { color: #ffffff; margin: 10px 0 5px 0; font-size: 18px; }
+        .card-produto p { color: #8b949e; font-size: 13px; margin: 0 0 15px 0; min-height: 38px; }
+        
+        .btn-download {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 0;
+            background: #deff9a;
+            color: #0d1117;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-sizing: border-box;
+        }
+        .btn-download:hover { background: #bdde79; }
     </style>
 </head>
 <body>
-    <div class="box">
-        <h1>🚀 Bem-vindo ao Painel VIP!</h1>
-        <p>O teu sistema de login e ativação está a funcionar a 100%.</p>
+
+    <div class="header">
+        <h1>🚀 Teu Painel VIP de Conteúdo</h1>
+        <p>Tens acesso total aos arquivos abaixo. Clica para descarregar direto.</p>
     </div>
+
+    <div class="grid-produtos">
+        
+        <div class="card-produto">
+            <img class="preview-media" src="https://www.google.com/imgres?q=adobe%20after%20effect%20Fotos%20de%20edic%C3%A3o%204k%20after%20effects&imgurl=https%3A%2F%2Fwww.soundstripe.com%2Fhubfs%2FThe-9-Best-After-Effects-Tutorials.jpg&imgrefurl=https%3A%2F%2Fwww.soundstripe.com%2Fblogs%2Fthe-9-best-after-effects-tutorials&docid=XDLcp2XwimJuBM&tbnid=9aWLqYH24V0fpM&vet=12ahUKEwiHiZeSq4mVAxWFpCcCHRa1N74QnPAOegQIKRAB..i&w=944&h=531&hcb=2&ved=2ahUKEwiHiZeSq4mVAxWFpCcCHRa1N74QnPAOegQIKRAB">
+            <h3>Pack de Fotos Ultra 4K</h3>
+            <p>Imagens exclusivas em alta resolução prontas para usar nas tuas edições.</p>
+            <a href="LINK_DO_TEU_GOOGLE_DRIVE" target="_blank" class="btn-download">Descarregar Arquivo</a>
+        </div>
+
+        <div class="card-produto">
+            <video class="preview-media" autoplay loop muted playsinline>
+                <source src="teu-video-demonstracao.mp4" type="video/mp4">
+            </video>
+            <h3>Pack de Vídeos Drill/Mystery</h3>
+            <p>Clipes de vídeo em alta fidelidade para fundos e transições de edits de luxo.</p>
+            <a href="LINK_DO_TEU_MEGA" target="_blank" class="btn-download">Descarregar Vídeo</a>
+        </div>
+
+    </div>
+
 </body>
+</html>
+
 </html>
 
