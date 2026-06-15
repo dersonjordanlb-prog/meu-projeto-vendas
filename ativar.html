@@ -2,25 +2,98 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Ativar Acesso</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ativar Licença</title>
     <style>
-        body { background: #0d1117; color: #c9d1d9; font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; }
-        .container { background: #161b22; padding: 30px; border-radius: 10px; width: 300px; text-align: center; border: 1px solid #30363d; }
-        input { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #30363d; background: #0d1117; color: white; }
-        button { width: 100%; padding: 10px; background: #deff9a; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 20px; 
+            background: #0d1117; 
+            color: #c9d1d9;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .card { 
+            background: #161b22; 
+            padding: 40px 30px; 
+            border-radius: 12px; 
+            border: 1px solid #30363d;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5); 
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+        .status-topo {
+            background: #21262d;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            border: 1px solid #30363d;
+            color: #8b949e;
+        }
+        h1 { color: #ffffff; margin-top: 0; font-size: 24px; }
+        p { color: #8b949e; font-size: 14px; line-height: 1.5; }
+        input { 
+            display: block; 
+            width: 100%; 
+            margin: 20px 0 15px 0; 
+            padding: 12px; 
+            box-sizing: border-box; 
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        input:focus { border-color: #deff9a; outline: none; }
+        button { 
+            width: 100%; 
+            padding: 14px; 
+            background: #deff9a; 
+            color: #0d1117; 
+            border: none; 
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer; 
+            transition: background 0.2s;
+        }
+        button:hover { background: #bdde79; }
+        .btn-secondary {
+            background: transparent;
+            color: #8b949e;
+            border: 1px solid #30363d;
+            margin-top: 10px;
+        }
+        .btn-secondary:hover { background: #21262d; color: #ffffff; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Ativar Chave</h2>
-        <input type="text" id="chaveInput" placeholder="Digite sua chave...">
-        <button id="btnAtivar">Ativar Acesso</button>
-        <p id="status"></p>
+
+    <div class="card">
+        <div id="status" class="status-topo">Verificando utilizador...</div>
+        
+        <div id="blocoAtivacao">
+            <h1>Insira sua Chave VIP</h1>
+            <p>Introduza o código de acesso que recebeu para desbloquear o produto.</p>
+            
+            <input type="text" id="chaveInput" placeholder="DIGITE SUA CHAVE AQUI">
+            
+            <button id="btnAtivar">Ativar Acesso</button>
+            <button onclick="window.location.href='index.html'" class="btn-secondary">Voltar</button>
+        </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDRGyFAEcTRagke7LcQKIeGzl07mQbZVro",
@@ -32,37 +105,68 @@
         };
 
         const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
         const db = getFirestore(app);
+
+        // Verifica o estado do login
+        onAuthStateChanged(auth, (user) => {
+            const statusDiv = document.getElementById('status');
+            if (user) {
+                statusDiv.innerHTML = "Conta: <strong>" + user.email + "</strong>";
+            } else {
+                window.location.href = "cadastro.html";
+            }
+        });
 
         document.getElementById('btnAtivar').addEventListener('click', async () => {
             const chaveDigitada = document.getElementById('chaveInput').value.trim();
-            const status = document.getElementById('status');
-            
-            status.innerText = "A verificar...";
+            const btn = document.getElementById('btnAtivar');
+
+            if(!chaveDigitada) {
+                alert("Por favor, digite uma chave.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "Verificando...";
 
             try {
-                // Busca a chave global no Firestore
+                // Procura o documento 'global' na coleção 'chaves'
                 const docRef = doc(db, "chaves", "global");
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
-                    const chaveCorreta = docSnap.data().valor; // Certifica-te que no Firebase o campo se chama 'valor'
+                    const dadosBanco = docSnap.data();
                     
+                    // CORREÇÃO AQUI: Agora lê exatamente 'chaveVigente' do teu Firebase!
+                    const chaveCorreta = dadosBanco.chaveVigente; 
+
                     if (chaveDigitada === chaveCorreta) {
-                        status.innerText = "Sucesso! Redirecionando...";
-                        window.location.href = "painel.html"; 
+                        const user = auth.currentUser;
+                        const userRef = doc(db, "usuarios", user.uid);
+
+                        // Atualiza o campo 'temLicenca' do usuário logado para true
+                        await updateDoc(userRef, { temLicenca: true });
+
+                        alert("✅ Acesso Liberado com Sucesso!");
+                        window.location.href = "painel.html";
                     } else {
-                        status.innerText = "Chave incorreta!";
+                        alert("❌ Chave incorreta.");
+                        btn.disabled = false;
+                        btn.innerText = "Ativar Acesso";
                     }
                 } else {
-                    status.innerText = "Erro: Configuração não encontrada no banco.";
+                    alert("Erro técnico: Documento global não encontrado.");
+                    btn.disabled = false;
+                    btn.innerText = "Ativar Acesso";
                 }
             } catch (error) {
-                status.innerText = "Erro: " + error.message;
+                console.error(error);
+                alert("Erro ao processar: " + error.message);
+                btn.disabled = false;
+                btn.innerText = "Ativar Acesso";
             }
         });
     </script>
 </body>
 </html>
-
-
