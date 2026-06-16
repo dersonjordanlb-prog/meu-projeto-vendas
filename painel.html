@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel VIP - Conteúdo</title>
+    <title>Painel de Edição - Visualização Livre</title>
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
@@ -18,7 +18,7 @@
         }
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             margin-top: 20px;
         }
         .header h1 { color: #deff9a; font-size: 28px; margin-bottom: 5px; }
@@ -26,10 +26,10 @@
         
         .grid-produtos {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
             width: 100%;
-            max-width: 900px;
+            max-width: 1100px;
         }
         
         .card-produto {
@@ -40,15 +40,19 @@
             text-align: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: transform 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .card-produto:hover {
             transform: translateY(-5px);
             border-color: #deff9a;
         }
         
+        /* Espaço do player de vídeo ou imagem de capa */
         .preview-media {
             width: 100%;
-            height: 160px;
+            height: 180px;
             background: #0d1117;
             border-radius: 8px;
             margin-bottom: 15px;
@@ -72,7 +76,6 @@
             text-decoration: none;
             cursor: pointer;
             transition: background 0.2s;
-            box-sizing: border-box;
         }
         .btn-download:hover { background: #bdde79; }
     </style>
@@ -80,52 +83,49 @@
 <body>
 
     <div class="header">
-        <h1>🚀 Painel de Conteúdo</h1>
-        <p>Explora os nossos packs exclusivos abaixo. O download requer palavra-passe VIP.</p>
+        <h1>🔥 Área de Membros - Packs Disponíveis</h1>
+        <p>Assiste às demonstrações abaixo. Para fazer o download em alta qualidade, solicita a tua chave VIP.</p>
     </div>
 
     <div class="grid-produtos">
         
-        <!-- PRODUTO 1: Pack de Fotos -->
         <div class="card-produto">
-            <img class="preview-media" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Preview do Pack">
+            <video class="preview-media" controls poster="https://wallpaperaccess.com/full/1533411.jpg">
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                O teu navegador não suporta vídeos.
+            </video>
+            <h3>Pack de Vídeos Drill/Mystery</h3>
+            <p>Clipes em alta fidelidade para transições e fundos de edits de luxo.</p>
+            <button onclick="verificarAcesso('https://drive.google.com/drive/folders/1lxNN9Lp4h4CALpnztlEtaM7geKrOSziC')" class="btn-download">Descarregar Pack</button>
+        </div>
+
+        <div class="card-produto">
+            <img class="preview-media" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Preview">
             <h3>Pack de Fotos Ultra 4K</h3>
-            <p>Imagens exclusivas em alta resolução prontas para usar nas tuas edições.</p>
-            <!-- Adicionada a função de verificar a senha para as fotos também -->
+            <p>Imagens exclusivas em alta resolução prontas para usar no Photoshop ou CapCut.</p>
             <button onclick="verificarAcesso('https://drive.google.com')" class="btn-download">Descarregar Arquivo</button>
         </div>
 
-        <!-- PRODUTO 2: Pack de Vídeos Drill/Mystery -->
-        <div class="card-produto">
-            <img class="preview-media" src="https://wallpaperaccess.com/full/1533411.jpg" alt="Capa Drill">
-            <h3>Pack de Videos Drill/Mystery</h3>
-            <p>Clipes de vídeo em alta fidelidade para fundos e transições de edits de luxo.</p>
-            <!-- Adicionada a função de verificar a senha com o teu link real do Drive -->
-            <button onclick="verificarAcesso('https://drive.google.com/drive/folders/1lxNN9Lp4h4CALpnztlEtaM7geKrOSziC')" class="btn-download">Descarregar Vídeo</button>
         </div>
 
-    </div>
-
-    <!-- O SISTEMA DA PALAVRA-PASSE REAL (SÓ CONECTA SE ACERTAR A SENHA) -->
     <script>
         function verificarAcesso(linkDoDrive) {
-            // Abre a caixinha de texto perguntando a senha
-            var senhaDigitada = prompt("Insira a palavra-passe VIP para descarregar este pack:");
+            var senhaDigitada = prompt("Insira a palavra-passe VIP para libertar o download:");
             
-            // Verifica se a senha está certa
             if (senhaDigitada === "Lopes2025") {
-                alert("Acesso concedido! A redirecionar para o Google Drive...");
-                window.open(linkDoDrive, '_blank'); // Abre o teu drive numa nova aba
+                alert("Acesso concedido! A redirecionar para o teu Google Drive...");
+                window.open(linkDoDrive, '_blank');
             } else if (senhaDigitada === null) {
-                // Se o cliente clicar em cancelar, não faz nada
+                // Se o utilizador cancelar, não faz nada
                 return;
             } else {
-                // Se errar a senha
-                alert("Palavra-passe incorreta! Acesso negado. Fala com o administrador para obter o acesso.");
+                // Se errar a senha, avisa e dá a opção de ir para o WhatsApp
+                var irParaWhats = confirm("Palavra-passe incorreta!\n\nNão tens a chave de acesso? Clica em 'OK' para falar comigo no WhatsApp e comprar o teu acesso VIP.");
+                if (irParaWhats) {
+                    // Substitui o número abaixo pelo teu número de WhatsApp real (com o indicativo do país, ex: 351 para Portugal)
+                    window.open("https://wa.me/351933093835?text=Ol%C3%A1%21+Quero+comprar+a+palavra-passe+para+o+Pack+de+V%C3%ADdeos.", '_blank');
+                }
             }
         }
     </script>
-
-</body>
-</html>
 
