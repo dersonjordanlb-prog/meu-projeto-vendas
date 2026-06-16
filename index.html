@@ -1,143 +1,41 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edição de Videos , Qualidades desde 780P até 4K</title>
-    <style>
-        /* Estilo Dark e Moderno */
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: #0d1117; 
-            color: #c9d1d9; 
-            margin: 0; 
-            padding: 0; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            min-height: 100vh;
-        }
-
-        header {
-            width: 100%;
-            padding: 20px;
-            text-align: center;
-            background: #161b22;
-            border-bottom: 1px solid #30363d;
-        }
-
-        header h1 {
-            margin: 0;
-            color: #deff9a; /* Tom verde/neon exclusivo */
-            font-size: 24px;
-        }
-
-        .vitrine-container { 
-            max-width: 800px; 
-            width: 90%; 
-            padding: 40px 20px; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .produto-card { 
-            background: #161b22; 
-            padding: 30px; 
-            border-radius: 12px; 
-            border: 1px solid #30363d;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5); 
-            text-align: center;
-            max-width: 450px;
-            transition: transform 0.2s;
-        }
-
-        .produto-card:hover {
-            transform: translateY(-5px);
-            border-color: #deff9a;
-        }
-
-        /* Espaço para simular a capa do teu livro/produto */
-        .produto-capa {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(135deg, #21262d, #0d1117);
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px dashed #30363d;
-        }
-
-        .produto-capa span {
-            font-size: 50px;
-        }
-
-        h2 { color: #ffffff; margin-top: 0; font-size: 22px; }
-        
-        .descricao { 
-            color: #8b949e; 
-            font-size: 15px; 
-            line-height: 1.6; 
-            margin-bottom: 25px; 
-        }
-
-        .preco {
-            font-size: 24px;
-            color: #deff9a;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .btn-comprar { 
-            display: inline-block;
-            width: 100%; 
-            padding: 14px; 
-            background: #deff9a; 
-            color: #0d1117; 
-            border: none; 
-            border-radius: 6px;
-            font-size: 16px; 
-            font-weight: bold;
-            cursor: pointer; 
-            text-decoration: none;
-            transition: background 0.2s;
-        }
-
-        .btn-comprar:hover { 
-            background: #bdde79; 
-        }
-    </style>
+    <title>Lopes Brandão - Edição de Vídeos 4K</title>
+    <!-- Ligação com o seu ficheiro de estilos externo -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <h1>Edição CC and Afeter efects• Portal Oficial</h1>
+        <h1>Lopes Brandão • Portal Oficial</h1>
+        <p>Edição After Effects & CapCut • Qualidade de 720p até 4K</p>
     </header>
 
     <div class="vitrine-container">
         <div class="produto-card">
-            <div class="produto-capa">
-                <span>✒️</span>
-            </div>
-            <h2>Edições de fotos e Videos Afeter Efects/ CapCut</h2>
-            <p class="descricao">
-               Tenha Acesso a varias edicão de alta qualidade.
-            </p>
-            <div class="preco">1.5€,00</div>
             
+            <div class="produto-capa">
+                <!-- APAGUE ESTE LINK ABAIXO E COLE O SEU QUANDO QUISER MUDAR A IMAGEM -->
+                <img src="https://www.google.com/imgres?q=fotos%20em%204k%20after%20effects&imgurl=https%3A%2F%2Fwallpaperaccess.com%2Ffull%2F3953916.jpg&imgrefurl=https%3A%2F%2Fwallpaperaccess.com%2Fafter-effects&docid=k0dP5BS-G6bSuM&tbnid=zsl9kAngch3JpM&vet=12ahUKEwiXmsv6wIuVAxU-U6QEHXxnNq4QnPAOegQIIBAB..i&w=1920&h=1080&hcb=2&ved=2ahUKEwiXmsv6wIuVAxU-U6QEHXxnNq4QnPAOegQIIBAB" alt="Design de Edição" class="imagem-capa">
+            </div>
+
+            <h2>Edições de fotos e Vídeos After Effects / CapCut</h2>
+            
+            <p class="descricao">
+                Tenha acesso a várias edições de alta qualidade. Um trabalho profissional para destacar os seus projetos.
+            </p>
+            
+            <div class="preco">1.50€</div>
+
             <button class="btn-comprar" onclick="irParaCadastro()">Quero Acesso Imediato</button>
         </div>
     </div>
 
-    <script>
-        function irParaCadastro() {
-            // Guarda a informação de que o cliente quer comprar o Produto 1
-            localStorage.setItem('intencao_compra', 'true');
-            // Redireciona para a página de registo/cadastro
-            window.location.href = "cadastro.html";
-        }
-    </script>
+    <!-- Ligação com o seu ficheiro de lógica JS -->
+    <script src="script.js"></script>
 </body>
 </html>
+
