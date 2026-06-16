@@ -3,79 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Edição - Visualização Livre</title>
+    <title>Painel de Vídeos - Visualização Livre</title>
     <style>
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-family: 'Segoe UI', sans-serif; 
             background: #0d1117; 
-            color: #c9d1d9;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            color: #c9d1d9; 
+            margin: 0; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
         }
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
+        .header { text-align: center; margin: 30px 0; }
+        .header h1 { color: #deff9a; margin-bottom: 5px; }
+        .header p { color: #8b949e; margin: 0; }
+        
+        .grid-produtos { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 25px; 
+            width: 100%; 
+            max-width: 1100px; 
             margin-top: 20px;
         }
-        .header h1 { color: #deff9a; font-size: 28px; margin-bottom: 5px; }
-        .header p { color: #8b949e; margin: 0; font-size: 14px; }
-        
-        .grid-produtos {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            width: 100%;
-            max-width: 1100px;
-        }
-        
-        .card-produto {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
+        .card-produto { 
+            background: #161b22; 
+            border: 1px solid #30363d; 
+            border-radius: 12px; 
+            padding: 20px; 
+            text-align: center; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.2s, border-color 0.2s;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
         }
-        .card-produto:hover {
-            transform: translateY(-5px);
-            border-color: #deff9a;
-        }
-        
-        /* Espaço do player de vídeo ou imagem de capa */
-        .preview-media {
-            width: 100%;
-            height: 180px;
-            background: #0d1117;
-            border-radius: 8px;
+        .preview-media { 
+            width: 100%; 
+            height: 180px; 
+            background: #0d1117; 
+            border-radius: 8px; 
+            object-fit: cover; 
+            border: 1px solid #21262d; 
             margin-bottom: 15px;
-            object-fit: cover;
-            border: 1px solid #21262d;
         }
+        .card-produto h3 { color: #ffffff; margin: 10px 0; }
+        .card-produto p { color: #8b949e; font-size: 13px; margin-bottom: 15px; }
         
-        .card-produto h3 { color: #ffffff; margin: 10px 0 5px 0; font-size: 18px; }
-        .card-produto p { color: #8b949e; font-size: 13px; margin: 0 0 15px 0; min-height: 38px; }
-        
-        .btn-download {
-            display: inline-block;
-            width: 100%;
-            padding: 12px 0;
-            background: #deff9a;
-            color: #0d1117;
-            border: none;
-            border-radius: 6px;
-            font-size: 15px;
-            font-weight: bold;
+        .btn-download { 
+            display: inline-block; 
+            width: 100%; 
+            padding: 12px 0; 
+            background: #deff9a; 
+            color: #0d1117; 
+            border: none; 
+            border-radius: 6px; 
+            font-size: 15px; 
+            font-weight: bold; 
+            cursor: pointer; 
             text-decoration: none;
-            cursor: pointer;
-            transition: background 0.2s;
         }
         .btn-download:hover { background: #bdde79; }
     </style>
@@ -83,8 +66,8 @@
 <body>
 
     <div class="header">
-        <h1>🔥 Área de Membros - Packs Disponíveis</h1>
-        <p>Assiste às demonstrações abaixo. Para fazer o download em alta qualidade, solicita a tua chave VIP.</p>
+        <h1>🔥 Área de Vídeos - Packs Exclusivos</h1>
+        <p>Dá o "Play" para assistir à demonstração. O download requer chave VIP.</p>
     </div>
 
     <div class="grid-produtos">
@@ -99,13 +82,6 @@
             <button onclick="verificarAcesso('https://drive.google.com/drive/folders/1lxNN9Lp4h4CALpnztlEtaM7geKrOSziC')" class="btn-download">Descarregar Pack</button>
         </div>
 
-        <div class="card-produto">
-            <img class="preview-media" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Preview">
-            <h3>Pack de Fotos Ultra 4K</h3>
-            <p>Imagens exclusivas em alta resolução prontas para usar no Photoshop ou CapCut.</p>
-            <button onclick="verificarAcesso('https://drive.google.com')" class="btn-download">Descarregar Arquivo</button>
-        </div>
-
         </div>
 
     <script>
@@ -113,19 +89,20 @@
             var senhaDigitada = prompt("Insira a palavra-passe VIP para libertar o download:");
             
             if (senhaDigitada === "Lopes2025") {
-                alert("Acesso concedido! A redirecionar para o teu Google Drive...");
+                alert("Acesso concedido! A abrir o teu Google Drive...");
                 window.open(linkDoDrive, '_blank');
             } else if (senhaDigitada === null) {
-                // Se o utilizador cancelar, não faz nada
-                return;
+                return; // Se o cliente cancelar, não faz nada
             } else {
-                // Se errar a senha, avisa e dá a opção de ir para o WhatsApp
                 var irParaWhats = confirm("Palavra-passe incorreta!\n\nNão tens a chave de acesso? Clica em 'OK' para falar comigo no WhatsApp e comprar o teu acesso VIP.");
                 if (irParaWhats) {
-                    // Substitui o número abaixo pelo teu número de WhatsApp real (com o indicativo do país, ex: 351 para Portugal)
-                    window.open("https://wa.me/351933093835?text=Ol%C3%A1%21+Quero+comprar+a+palavra-passe+para+o+Pack+de+V%C3%ADdeos.", '_blank');
+                    // Configura aqui o teu número real com o indicativo (ex: 351 para Portugal)
+                    window.open("https://wa.me/351912345678?text=Olá!+Quero+comprar+a+palavra-passe+para+o+Pack.", '_blank');
                 }
             }
         }
     </script>
+
+</body>
+</html>
 
