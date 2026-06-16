@@ -79,10 +79,11 @@
             </video>
             <h3>Pack de Vídeos Drill/Mystery</h3>
             <p>Clipes em alta fidelidade para transições e fundos de edits de luxo.</p>
-            <button onclick="verificarAcesso('https://drive.google.com/drive/folders/1lxNN9Lp4h4CALpnztlEtaM7geKrOSziC')" class="btn-download">Descarregar Pack</button>
+            
+            <button onclick="verificarAcesso('https://drive.google.com/drive/folders/1Pe-jeeIoNXHLNQKaoz6e_HYAnKTZgGBD')" class="btn-download">Descarregar Pack</button>
         </div>
 
-        </div>
+    </div>
 
     <script>
         function verificarAcesso(linkDoDrive) {
@@ -92,12 +93,12 @@
                 alert("Acesso concedido! A abrir o teu Google Drive...");
                 window.open(linkDoDrive, '_blank');
             } else if (senhaDigitada === null) {
-                return; // Se o cliente cancelar, não faz nada
+                return; 
             } else {
                 var irParaWhats = confirm("Palavra-passe incorreta!\n\nNão tens a chave de acesso? Clica em 'OK' para falar comigo no WhatsApp e comprar o teu acesso VIP.");
                 if (irParaWhats) {
-                    // Configura aqui o teu número real com o indicativo (ex: 351 para Portugal)
-                    window.open("https://wa.me/351933093835?text=Olá!+Quero+comprar+a+palavra-passe+para+o+Pack.", '_blank');
+                    // O teu WhatsApp real com mensagem automática configurado aqui
+                    window.open("https://wa.me/351933093835?text=Ol%C3%A1%21+Quero+comprar+a+palavra-passe+Lopes2025+para+o+Pack+de+V%C3%ADdeos.", '_blank');
                 }
             }
         }
@@ -105,4 +106,3 @@
 
 </body>
 </html>
-
