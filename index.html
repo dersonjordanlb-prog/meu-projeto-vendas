@@ -1,215 +1,130 @@
 <!DOCTYPE html>
-
 <html lang="pt-br">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Edições de Alta Qualidade</title>
-
-<style>
-
-body {
-
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-background: #0d1117;
-
-color: #c9d1d9;
-
-margin: 0;
-
-padding: 20px;
-
-display: flex;
-
-justify-content: center;
-
-align-items: center;
-
-min-height: 100vh;
-
-}
-
-
-
-/* Estilo do Card Principal */
-
-.card-produto {
-
-background: #161b22;
-
-border: 1px solid #30363d;
-
-border-radius: 12px;
-
-padding: 30px;
-
-text-align: center;
-
-box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-
-width: 100%;
-
-max-width: 360px;
-
-transition: transform 0.2s, border-color 0.2s;
-
-}
-
-
-
-.card-produto:hover {
-
-transform: translateY(-5px);
-
-border-color: #deff9a;
-
-}
-
-
-
-/* Espaço da Imagem de Capa (Onde estava a caneta) */
-
-.preview-media {
-
-width: 100%;
-
-height: 200px;
-
-background: #21262d;
-
-border-radius: 8px;
-
-margin-bottom: 20px;
-
-object-fit: cover; /* Faz a imagem encaixar perfeitamente sem distorcer */
-
-border: 1px solid #30363d;
-
-}
-
-
-
-.card-produto h2 {
-
-color: #ffffff;
-
-margin: 15px 0 10px 0;
-
-font-size: 22px;
-
-line-height: 1.3;
-
-}
-
-
-
-.card-produto p {
-
-color: #8b949e;
-
-font-size: 14px;
-
-line-height: 1.5;
-
-margin-bottom: 20px;
-
-}
-
-
-
-.preco {
-
-font-size: 24px;
-
-font-weight: bold;
-
-color: #ffffff;
-
-margin-bottom: 20px;
-
-}
-
-
-
-/* Botão Quero Acesso Imediato */
-
-.btn-acesso {
-
-display: block;
-
-width: 100%;
-
-padding: 14px 0;
-
-background: #ffffff;
-
-color: #0d1117;
-
-border: none;
-
-border-radius: 6px;
-
-font-size: 16px;
-
-font-weight: bold;
-
-text-decoration: none;
-
-cursor: pointer;
-
-transition: background 0.2s;
-
-box-sizing: border-box;
-
-}
-
-
-
-.btn-acesso:hover {
-
-background: #deff9a; /* Muda para o verde neon ao passar o rato */
-
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel VIP - Edições de Alta Qualidade</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+        .header h1 { color: #deff9a; font-size: 28px; margin-bottom: 5px; }
+        .header p { color: #8b949e; margin: 0; font-size: 14px; }
+
+        /* Estrutura em Grid para os Cards ficarem lado a lado */
+        .grid-produtos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        /* Estilo do Card Principal */
+        .card-produto {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card-produto:hover {
+            transform: translateY(-5px);
+            border-color: #deff9a;
+        }
+
+        /* Imagens de Capa */
+        .preview-media {
+            width: 100%;
+            height: 200px;
+            background: #21262d;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            object-fit: cover;
+            border: 1px solid #30363d;
+        }
+
+        .card-produto h3 {
+            color: #ffffff;
+            margin: 15px 0 10px 0;
+            font-size: 20px;
+            line-height: 1.3;
+        }
+
+        .card-produto p {
+            color: #8b949e;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            min-height: 42px; /* Mantém os botões alinhados na mesma altura */
+        }
+
+        /* Botão de Download / Acesso */
+        .btn-acesso {
+            display: block;
+            width: 100%;
+            padding: 14px 0;
+            background: #deff9a;
+            color: #0d1117;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-sizing: border-box;
+        }
+
+        .btn-acesso:hover {
+            background: #bdde79;
+        }
+    </style>
 </head>
-
 <body>
 
+    <div class="header">
+        <h1>🚀 Teu Painel VIP de Conteúdo</h1>
+        <p>Tens acesso total aos arquivos abaixo. Clica para descarregar direto.</p>
+    </div>
 
+    <div class="grid-produtos">
 
-<div class="card-produto">
+        <!-- CARD 1: PACK DE FOTOS -->
+        <div class="card-produto">
+            <img class="preview-media" src="https://c4.wallpaperflare.com/wallpaper/676/895/612/astronaut-smoke-colored-smoke-nasa-space-hd-wallpaper-preview.jpg" alt="Preview do Pack">
+            <h3>Pack de Fotos Ultra 4K</h3>
+            <p>Imagens exclusivas em alta resolução prontas para usar nas tuas edições.</p>
+            <a href="https://drive.google.com" target="_blank" class="btn-acesso">Descarregar Arquivo</a>
+        </div>
 
+        <!-- CARD 2: PACK DE VÍDEOS DRILL (COM O BOTÃO QUE FALTA) -->
+        <div class="card-produto">
+            <img class="preview-media" src="https://wallpaperaccess.com/full/1533411.jpg" alt="Capa Drill">
+            <h3>Pack de Videos Drill/Mystery</h3>
+            <p>Clipes de vídeo em alta fidelidade para fundos e transições de edits de luxo.</p>
+            <!-- Ligação direta para o teu Google Drive configurada aqui: -->
+            <a href="https://drive.google.com/drive/folders/1lxNN9Lp4h4CALpnztlEtaM7geKrOSziC" target="_blank" class="btn-acesso">Descarregar Arquivo</a>
+        </div>
 
-<img class="preview-media" src="https://c4.wallpaperflare.com/wallpaper/676/895/612/astronaut-smoke-colored-smoke-nasa-space-hd-wallpaper-preview.jpg">
-
-
-
-<h2>Edições de fotos e Vídeos After Effects / CapCut</h2>
-
-
-<p>Tenha Acesso a várias edição de alta qualidade.</p>
-
-
-<div class="preco">1.5€,00</div>
-
-
-
-<a href="cadastro.html" class="btn-acesso">Quero Acesso Imediato</a>
-
-
-
-</div>
-
-
+    </div>
 
 </body>
-
-</html> 
-
+</html>
