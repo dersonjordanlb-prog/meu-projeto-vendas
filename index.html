@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel VIP - Edições de Alta Qualidade</title>
+    <title>Painel VIP - Conteúdo</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0d1117;
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #0d1117; 
             color: #c9d1d9;
             margin: 0;
             padding: 20px;
@@ -16,7 +16,6 @@
             align-items: center;
             min-height: 100vh;
         }
-
         .header {
             text-align: center;
             margin-bottom: 30px;
@@ -24,8 +23,7 @@
         }
         .header h1 { color: #deff9a; font-size: 28px; margin-bottom: 5px; }
         .header p { color: #8b949e; margin: 0; font-size: 14px; }
-
-        /* Estrutura em Grid para os Cards ficarem lado a lado */
+        
         .grid-produtos {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -33,98 +31,101 @@
             width: 100%;
             max-width: 900px;
         }
-
-        /* Estilo do Card Principal */
+        
         .card-produto {
             background: #161b22;
             border: 1px solid #30363d;
             border-radius: 12px;
-            padding: 30px;
+            padding: 20px;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: transform 0.2s, border-color 0.2s;
         }
-
         .card-produto:hover {
             transform: translateY(-5px);
             border-color: #deff9a;
         }
-
-        /* Imagens de Capa */
+        
         .preview-media {
             width: 100%;
-            height: 200px;
-            background: #21262d;
+            height: 160px;
+            background: #0d1117;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             object-fit: cover;
-            border: 1px solid #30363d;
+            border: 1px solid #21262d;
         }
-
-        .card-produto h3 {
-            color: #ffffff;
-            margin: 15px 0 10px 0;
-            font-size: 20px;
-            line-height: 1.3;
-        }
-
-        .card-produto p {
-            color: #8b949e;
-            font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 20px;
-            min-height: 42px; /* Mantém os botões alinhados na mesma altura */
-        }
-
-        /* Botão de Download / Acesso */
-        .btn-acesso {
-            display: block;
+        
+        .card-produto h3 { color: #ffffff; margin: 10px 0 5px 0; font-size: 18px; }
+        .card-produto p { color: #8b949e; font-size: 13px; margin: 0 0 15px 0; min-height: 38px; }
+        
+        .btn-download {
+            display: inline-block;
             width: 100%;
-            padding: 14px 0;
+            padding: 12px 0;
             background: #deff9a;
             color: #0d1117;
             border: none;
             border-radius: 6px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             text-decoration: none;
             cursor: pointer;
             transition: background 0.2s;
             box-sizing: border-box;
         }
-
-        .btn-acesso:hover {
-            background: #bdde79;
-        }
+        .btn-download:hover { background: #bdde79; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>🚀 Teu Painel VIP de Conteúdo</h1>
-        <p>Tens acesso total aos arquivos abaixo. Clica para descarregar direto.</p>
+        <h1>🚀 Painel de Conteúdo</h1>
+        <p>Explora os nossos packs exclusivos abaixo. O download requer palavra-passe VIP.</p>
     </div>
 
     <div class="grid-produtos">
-
-        <!-- CARD 1: PACK DE FOTOS -->
+        
+        <!-- PRODUTO 1: Pack de Fotos -->
         <div class="card-produto">
-            <img class="preview-media" src="https://c4.wallpaperflare.com/wallpaper/676/895/612/astronaut-smoke-colored-smoke-nasa-space-hd-wallpaper-preview.jpg" alt="Preview do Pack">
+            <img class="preview-media" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Preview do Pack">
             <h3>Pack de Fotos Ultra 4K</h3>
             <p>Imagens exclusivas em alta resolução prontas para usar nas tuas edições.</p>
-            <a href="https://drive.google.com" target="_blank" class="btn-acesso">Descarregar Arquivo</a>
+            <!-- Adicionada a função de verificar a senha para as fotos também -->
+            <button onclick="verificarAcesso('https://drive.google.com')" class="btn-download">Descarregar Arquivo</button>
         </div>
 
-        <!-- CARD 2: PACK DE VÍDEOS DRILL (COM O BOTÃO QUE FALTA) -->
+        <!-- PRODUTO 2: Pack de Vídeos Drill/Mystery -->
         <div class="card-produto">
             <img class="preview-media" src="https://wallpaperaccess.com/full/1533411.jpg" alt="Capa Drill">
             <h3>Pack de Videos Drill/Mystery</h3>
             <p>Clipes de vídeo em alta fidelidade para fundos e transições de edits de luxo.</p>
-            <!-- Ligação direta para o teu Google Drive configurada aqui: -->
-            <a href="https://drive.google.com/drive/folders/1lxNN9Lp4h4CALpnztlEtaM7geKrOSziC" target="_blank" class="btn-acesso">Descarregar Arquivo</a>
+            <!-- Adicionada a função de verificar a senha com o teu link real do Drive -->
+            <button onclick="verificarAcesso('https://drive.google.com/drive/folders/1lxNN9Lp4h4CALpnztlEtaM7geKrOSziC')" class="btn-download">Descarregar Vídeo</button>
         </div>
 
     </div>
 
+    <!-- O SISTEMA DA PALAVRA-PASSE REAL (SÓ CONECTA SE ACERTAR A SENHA) -->
+    <script>
+        function verificarAcesso(linkDoDrive) {
+            // Abre a caixinha de texto perguntando a senha
+            var senhaDigitada = prompt("Insira a palavra-passe VIP para descarregar este pack:");
+            
+            // Verifica se a senha está certa
+            if (senhaDigitada === "Lopes2025") {
+                alert("Acesso concedido! A redirecionar para o Google Drive...");
+                window.open(linkDoDrive, '_blank'); // Abre o teu drive numa nova aba
+            } else if (senhaDigitada === null) {
+                // Se o cliente clicar em cancelar, não faz nada
+                return;
+            } else {
+                // Se errar a senha
+                alert("Palavra-passe incorreta! Acesso negado. Fala com o administrador para obter o acesso.");
+            }
+        }
+    </script>
+
 </body>
 </html>
+
