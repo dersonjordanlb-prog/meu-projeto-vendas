@@ -34,6 +34,13 @@
             padding: 20px; 
             text-align: center; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-produto:hover {
+            transform: translateY(-5px);
+            border-color: #deff9a;
         }
         .preview-media { 
             width: 100%; 
@@ -75,11 +82,82 @@
         <div class="card-produto">
             <video class="preview-media" controls poster="https://wallpaperaccess.com/full/1533411.jpg">
                 <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                O teu navegador não suporta vídeos.
             </video>
-            <h3>Pack de Vídeos Drill/Mystery</h3>
+            <h3>Pack 01 - Drill Essentials</h3>
             <p>Clipes em alta fidelidade para transições e fundos de edits de luxo.</p>
-            
+            <button onclick="verificarAcesso('https://drive.google.com/drive/folders/1Pe-jeeIoNXHLNQKaoz6e_HYAnKTZgGBD')" class="btn-download">Descarregar Pack</button>
+        </div>
+
+        <div class="card-produto">
+            <video class="preview-media" controls poster="https://wallpaperaccess.com/full/1533411.jpg">
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            </video>
+            <h3>Pack 02 - Mystery Overlays</h3>
+            <p>Efeitos misteriosos e fumo escuro para edits cinematográficos.</p>
+            <button onclick="verificarAcesso('https://drive.google.com/drive/folders/1Pe-jeeIoNXHLNQKaoz6e_HYAnKTZgGBD')" class="btn-download">Descarregar Pack</button>
+        </div>
+
+        <div class="card-produto">
+            <video class="preview-media" controls poster="https://wallpaperaccess.com/full/1533411.jpg">
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            </video>
+            <h3>Pack 03 - Transições Velocity</h3>
+            <p>Transições batidas perfeitas para sincronizar com drill e rap.</p>
+            <button onclick="verificarAcesso('https://drive.google.com/drive/folders/1Pe-jeeIoNXHLNQKaoz6e_HYAnKTZgGBD')" class="btn-download">Descarregar Pack</button>
+        </div>
+
+        <div class="card-produto">
+            <img class="preview-media" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Capa">
+            <h3>Pack 04 - Texturas Grunge</h3>
+            <p>Fundo texturizado e overlays de papel rasgado para miniaturas.</p>
+            <button onclick="verificarAcesso('https://drive.google.com/drive/folders/1Pe-jeeIoNXHLNQKaoz6e_HYAnKTZgGBD')" class="btn-download">Descarregar Pack</button>
+        </div>
+
+        <div class="card-produto">
+            <img class="preview-media" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Capa">
+            <h3>Pack 05 - Efeitos Cyberpunk</h3>
+            <p>Luzes neon e falhas digitais (glitch) prontas a aplicar.</p>
+            <button onclick="verificarAcesso('https://drive.google.com/drive/folders/1Pe-jeeIoNXHLNQKaoz6e_HYAnKTZgGBD')" class="btn-download">Descarregar Pack</button>
+        </div>
+
+        <div class="card-produto">
+            <video class="preview-media" controls poster="https://wallpaperaccess.com/full/1533411.jpg">
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            </video>
+            <h3>Pack 06 - Sound Effects 808</h3>
+            <p>Efeitos de som brutais, graves estourados e batidas de drill.</p>
+            <button onclick="verificarAcesso('https://drive.google.com/drive/folders/1Pe-jeeIoNXHLNQKaoz6e_HYAnKTZgGBD')" class="btn-download">Descarregar Pack</button>
+        </div>
+
+        <div class="card-produto">
+            <video class="preview-media" controls poster="https://wallpaperaccess.com/full/1533411.jpg">
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            </video>
+            <h3>Pack 07 - Animações de Texto</h3>
+            <p>Letras estilizadas e efeitos de texto dinâmicos editáveis.</p>
+            <button onclick="verificarAcesso('https://drive.google.com/drive/folders/1Pe-jeeIoNXHLNQKaoz6e_HYAnKTZgGBD')" class="btn-download">Descarregar Pack</button>
+        </div>
+
+        <div class="card-produto">
+            <img class="preview-media" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Capa">
+            <h3>Pack 08 - Presets Lightroom</h3>
+            <p>Correções de cor sombrias e urbanas para fotos de perfil.</p>
+            <button onclick="verificarAcesso('https://drive.google.com/drive/folders/1Pe-jeeIoNXHLNQKaoz6e_HYAnKTZgGBD')" class="btn-download">Descarregar Pack</button>
+        </div>
+
+        <div class="card-produto">
+            <img class="preview-media" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500" alt="Capa">
+            <h3>Pack 09 - Iluminações FX</h3>
+            <p>Flares de luz e faíscas para sobrepor nos teus vídeos.</p>
+            <button onclick="verificarAcesso('https://drive.google.com/drive/folders/1Pe-jeeIoNXHLNQKaoz6e_HYAnKTZgGBD')" class="btn-download">Descarregar Pack</button>
+        </div>
+
+        <div class="card-produto">
+            <video class="preview-media" controls poster="https://wallpaperaccess.com/full/1533411.jpg">
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            </video>
+            <h3>Pack 10 - Cinematics Premium</h3>
+            <p>Take longos e planos de fundo de luxo prontos para edições.</p>
             <button onclick="verificarAcesso('https://drive.google.com/drive/folders/1Pe-jeeIoNXHLNQKaoz6e_HYAnKTZgGBD')" class="btn-download">Descarregar Pack</button>
         </div>
 
@@ -97,7 +175,6 @@
             } else {
                 var irParaWhats = confirm("Palavra-passe incorreta!\n\nNão tens a chave de acesso? Clica em 'OK' para falar comigo no WhatsApp e comprar o teu acesso VIP.");
                 if (irParaWhats) {
-                    // O teu WhatsApp real com mensagem automática configurado aqui
                     window.open("https://wa.me/351933093835?text=Ol%C3%A1%21+Quero+comprar+a+palavra-passe+Lopes2025+para+o+Pack+de+V%C3%ADdeos.", '_blank');
                 }
             }
@@ -106,3 +183,4 @@
 
 </body>
 </html>
+
