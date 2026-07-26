@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acesso VIP - Packs de Edição</title>
+    <title>Packs-No-Free - Catálogo Exclusivo</title>
     <style>
         * { box-sizing: border-box; }
         body { 
@@ -11,96 +11,250 @@
             background: #0d1117; 
             color: #c9d1d9; 
             margin: 0; 
-            padding: 20px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh;
+            padding: 0; 
         }
-        .auth-card { 
+
+        /* Barra de Topo Profissional */
+        header {
+            background: #161b22;
+            border-bottom: 1px solid #30363d;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { color: #deff9a; margin: 0; font-size: 20px; font-weight: bold; }
+        .user-zone { display: flex; align-items: center; gap: 15px; }
+        .user-email { font-size: 13px; color: #8b949e; display: none; }
+        
+        .btn-auth {
+            background: #deff9a;
+            color: #0d1117;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .btn-auth:hover { background: #bdde79; }
+        .btn-sair {
+            background: #21262d;
+            color: #f85149;
+            border: 1px solid #30363d;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            display: none;
+        }
+        .btn-sair:hover { background: #30363d; }
+
+        /* Conteúdo Principal */
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .header-section { text-align: center; margin-bottom: 40px; }
+        .header-section h1 { color: #deff9a; margin-bottom: 10px; font-size: 28px; }
+        .header-section p { color: #8b949e; font-size: 15px; }
+
+        .grid-produtos { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 25px; 
+        }
+        .card-produto { 
             background: #161b22; 
             border: 1px solid #30363d; 
             border-radius: 12px; 
-            padding: 30px; 
-            width: 100%; 
-            max-width: 400px; 
+            padding: 20px; 
             text-align: center; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        .auth-card h2 { color: #deff9a; margin-bottom: 10px; }
-        .auth-card p { color: #8b949e; font-size: 14px; margin-bottom: 25px; }
-        
-        .input-group { margin-bottom: 15px; text-align: left; }
-        .input-group label { display: block; margin-bottom: 5px; color: #8b949e; font-size: 13px; }
-        .input-group input { 
+        .card-produto:hover {
+            border-color: #deff9a;
+        }
+        .preview-media { 
             width: 100%; 
-            padding: 12px; 
+            height: 180px; 
             background: #0d1117; 
-            border: 1px solid #30363d; 
+            border-radius: 8px; 
+            object-fit: cover; 
+            border: 1px solid #21262d; 
+            margin-bottom: 15px;
+        }
+        .card-produto h3 { color: #ffffff; margin: 10px 0; font-size: 18px; }
+        .card-produto p { color: #8b949e; font-size: 13px; margin-bottom: 20px; line-height: 1.4; }
+        
+        .btn-download { 
+            display: block; 
+            width: 100%; 
+            padding: 12px 0; 
+            background: #deff9a; 
+            color: #0d1117; 
+            border: none; 
             border-radius: 6px; 
-            color: #fff; 
-            font-size: 14px; 
+            font-size: 15px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .btn-download:hover { background: #bdde79; }
+
+        /* Janela Flutuante (Modal) de Login/Registo */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        .auth-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 30px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+        .auth-card h2 { color: #deff9a; margin-top: 0; margin-bottom: 5px; }
+        .auth-card p { color: #8b949e; font-size: 13px; margin-bottom: 20px; }
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 20px;
+            background: none; border: none;
+            color: #8b949e; font-size: 20px; cursor: pointer;
+        }
+        .close-modal:hover { color: #fff; }
+
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 5px; color: #8b949e; font-size: 12px; }
+        .input-group input { 
+            width: 100%; padding: 10px; 
+            background: #0d1117; border: 1px solid #30363d; 
+            border-radius: 6px; color: #fff; font-size: 14px; 
             outline: none;
         }
         .input-group input:focus { border-color: #deff9a; }
         
         .btn-submit { 
-            width: 100%; 
-            padding: 12px; 
-            background: #deff9a; 
-            color: #0d1117; 
-            border: none; 
-            border-radius: 6px; 
-            font-size: 16px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            margin-top: 10px;
+            width: 100%; padding: 10px; 
+            background: #deff9a; color: #0d1117; 
+            border: none; border-radius: 6px; 
+            font-size: 15px; font-weight: bold; cursor: pointer; 
+            margin-top: 5px;
         }
         .btn-submit:hover { background: #bdde79; }
         
-        .toggle-text { margin-top: 20px; font-size: 13px; color: #8b949e; }
+        .toggle-text { margin-top: 15px; font-size: 12px; color: #8b949e; }
         .toggle-text a { color: #deff9a; text-decoration: none; font-weight: bold; cursor: pointer; }
-        .toggle-text a:hover { text-decoration: underline; }
-
-        .mensagem-erro { color: #ff6b6b; font-size: 13px; margin-top: 10px; display: none; }
-        .mensagem-sucesso { color: #deff9a; font-size: 13px; margin-top: 10px; display: none; }
+        
+        .msg-erro { color: #ff6b6b; font-size: 12px; margin-top: 10px; display: none; }
+        .msg-sucesso { color: #deff9a; font-size: 12px; margin-top: 10px; display: none; }
     </style>
 
-    <!-- SDKs do Firebase v8 (Mais simples e compatíveis com código direto) -->
+    <!-- SDKs do Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 </head>
 <body>
 
-    <div class="auth-card">
-        <h2 id="form-titulo">Área VIP</h2>
-        <p id="form-subtitulo">Inicia sessão para acederes aos teus packs exclusivos.</p>
+    <!-- BARRA DE TOPO COM O SISTEMA DE LOGIN -->
+    <header>
+        <h2 class="logo">🔥 Packs-No-Free</h2>
+        <div class="user-zone">
+            <span id="user-email-display" class="user-email"></span>
+            <button id="btn-login-open" class="btn-auth" onclick="abrirModal()">Entrar / Registar</button>
+            <button id="btn-logout" class="btn-sair" onclick="fazerLogout()">Sair</button>
+        </div>
+    </header>
 
-        <form id="auth-form">
-            <div class="input-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" placeholder="teuemail@gmail.com" required>
-            </div>
+    <!-- CATÁLOGO ABERTO PARA TODOS -->
+    <div class="container">
+        <div class="header-section">
+            <h1>Área de Demonstração de Vídeos</h1>
+            <p>Assiste às pré-visualizações livremente. Para descarregar os packs completos, efetua login na tua conta.</p>
+        </div>
+
+        <div class="grid-produtos">
             
-            <div class="input-group">
-                <label for="senha">Palavra-passe</label>
-                <input type="password" id="senha" placeholder="******" required>
+            <!-- PACK 01 -->
+            <div class="card-produto">
+                <iframe class="preview-media" src="https://www.youtube.com/embed/vREpelV-2Kw" frameborder="0" allowfullscreen></iframe>
+                <h3>Pack 01 - Drill Essentials</h3>
+                <p>Clipes em alta fidelidade para transições e fundos de edits de luxo.</p>
+                <button onclick="tentarDescarregar('https://drive.google.com/drive/folders/1Pe-jeeIoNXHLNQKaoz6e_HYAnKTZgGBD')" class="btn-download">Descarregar Pack</button>
             </div>
 
-            <button type="submit" id="btn-acao" class="btn-submit">Entrar</button>
-        </form>
+            <!-- PACK 02 -->
+            <div class="card-produto">
+                <iframe class="preview-media" src="https://www.youtube.com/embed/Cvk3lMr07ms" frameborder="0" allowfullscreen></iframe>
+                <h3>Pack 02 - Mystery Overlays</h3>
+                <p>Efeitos misteriosos e fumo escuro para edits cinematográficos.</p>
+                <button onclick="tentarDescarregar('https://drive.google.com/drive/folders/1Pe-jeeIoNXHLNQKaoz6e_HYAnKTZgGBD')" class="btn-download">Descarregar Pack</button>
+            </div>
 
-        <div id="msg-erro" class="mensagem-erro"></div>
-        <div id="msg-sucesso" class="mensagem-sucesso"></div>
+            <!-- PACK 03 -->
+            <div class="card-produto">
+                <video class="preview-media" controls poster="https://wallpaperaccess.com/full/1533411.jpg">
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                </video>
+                <h3>Pack 03 - Transições Velocity</h3>
+                <p>Transições batidas perfeitas para sincronizar com drill e rap.</p>
+                <button onclick="tentarDescarregar('https://drive.google.com/drive/folders/1Pe-jeeIoNXHLNQKaoz6e_HYAnKTZgGBD')" class="btn-download">Descarregar Pack</button>
+            </div>
 
-        <div class="toggle-text">
-            <span id="toggle-pergunta">Ainda não tens conta?</span> 
-            <a id="btn-toggle" onclick="alternarModo()">Criar Conta</a>
         </div>
     </div>
 
+    <!-- MODAL DE LOGIN / REGISTO -->
+    <div id="auth-modal" class="modal-overlay">
+        <div class="auth-card">
+            <button class="close-modal" onclick="fecharModal()">&times;</button>
+            <h2 id="modal-titulo">Área VIP</h2>
+            <p id="modal-subtitulo">Faz login ou cria conta para libertar os downloads.</p>
+
+            <form id="auth-form">
+                <div class="input-group">
+                    <label>E-mail</label>
+                    <input type="email" id="email" placeholder="teuemail@gmail.com" required>
+                </div>
+                
+                <div class="input-group">
+                    <label>Palavra-passe</label>
+                    <input type="password" id="senha" placeholder="******" required>
+                </div>
+
+                <button type="submit" id="btn-acao" class="btn-submit">Entrar</button>
+            </form>
+
+            <div id="msg-erro" class="msg-erro"></div>
+            <div id="msg-sucesso" class="msg-sucesso"></div>
+
+            <div class="toggle-text">
+                <span id="toggle-pergunta">Ainda não tens conta?</span> 
+                <a onclick="alternarModoModal()">Criar Conta</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS DE LIGAÇÃO AO FIREBASE E LÓGICA DO SITE -->
     <script>
-        // 1. As tuas credenciais reais do Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBniTKymd0rt1ywm-wBK-T9p2hOMIR8Psk",
             authDomain: "packs-no-free.firebaseapp.com",
@@ -109,48 +263,82 @@
             messagingSenderId: "1039609086871",
             appId: "1:1039609086871:web:37d9deb1d7f0b3aa507ad2"
         };
-
-        // 2. Inicializar o Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
+        let usuarioLogado = null;
+        let linkPendente = "";
         let modoCriarConta = false;
 
-        // Alternar entre Login e Criar Conta
-        function alternarModo() {
-            modoCriarConta = !modoCriarConta;
-            const titulo = document.getElementById('form-titulo');
-            const subtitulo = document.getElementById('form-subtitulo');
-            const btnAcao = document.getElementById('btn-acao');
-            const pergunta = document.getElementById('toggle-pergunta');
-            const btnToggle = document.getElementById('btn-toggle');
-            
-            esconderMensagens();
+        // Monitorizar Estado da Sessão (Firebase)
+        auth.onAuthStateChanged((user) => {
+            const btnLoginOpen = document.getElementById('btn-login-open');
+            const btnLogout = document.getElementById('btn-logout');
+            const userEmailDisplay = document.getElementById('user-email-display');
 
-            if (modoCriarConta) {
-                titulo.innerText = "Criar Conta VIP";
-                subtitulo.innerText = "Regista-te para teres acesso à plataforma.";
-                btnAcao.innerText = "Registar";
-                pergunta.innerText = "Já tens uma conta?";
-                btnToggle.innerText = "Fazer Login";
+            if (user) {
+                usuarioLogado = user;
+                btnLoginOpen.style.display = 'none';
+                userEmailDisplay.innerText = user.email;
+                userEmailDisplay.style.display = 'inline';
+                btnLogout.style.display = 'inline-block';
+                fecharModal();
             } else {
-                titulo.innerText = "Área VIP";
-                subtitulo.innerText = "Inicia sessão para acederes aos teus packs exclusivos.";
-                btnAcao.innerText = "Entrar";
-                pergunta.innerText = "Ainda não tens conta?";
-                btnToggle.innerText = "Criar Conta";
+                usuarioLogado = null;
+                btnLoginOpen.style.display = 'inline-block';
+                userEmailDisplay.style.display = 'none';
+                btnLogout.style.display = 'none';
+            }
+        });
+
+        // Tentar Descarregar (Verifica se está logado)
+        function tentarDescarregar(linkDrive) {
+            if (usuarioLogado) {
+                // Já tem sessão: abre o Google Drive diretamente
+                alert("Acesso VIP confirmado! A abrir o download...");
+                window.open(linkDrive, '_blank');
+            } else {
+                // Não tem sessão: guarda o link e obriga a fazer login
+                linkPendente = linkDrive;
+                abrirModal();
+                alert("Para descarregar os packs, deves primeiro entrar ou criar uma conta gratuita no topo!");
             }
         }
 
-        function esconderMensagens() {
+        // Controlar Modal
+        function abrirModal() { document.getElementById('auth-modal').style.display = 'flex'; }
+        function fecharModal() { document.getElementById('auth-modal').style.display = 'none'; limparMsgs(); }
+        function limparMsgs() {
             document.getElementById('msg-erro').style.display = 'none';
             document.getElementById('msg-sucesso').style.display = 'none';
         }
 
-        // Submeter formulário (Login ou Registo)
+        // Alternar entre Login e Criar Conta no Modal
+        function alternarModoModal() {
+            modoCriarConta = !modoCriarConta;
+            limparMsgs();
+            const titulo = document.getElementById('modal-titulo');
+            const subtitulo = document.getElementById('modal-subtitulo');
+            const btnAcao = document.getElementById('btn-acao');
+            const pergunta = document.getElementById('toggle-pergunta');
+            
+            if (modoCriarConta) {
+                titulo.innerText = "Criar Conta VIP";
+                subtitulo.innerText = "Regista-te para liberar os links de download.";
+                btnAcao.innerText = "Registar";
+                pergunta.innerText = "Já tens conta?";
+            } else {
+                titulo.innerText = "Área VIP";
+                subtitulo.innerText = "Faz login para libertar os downloads.";
+                btnAcao.innerText = "Entrar";
+                pergunta.innerText = "Ainda não tens conta?";
+            }
+        }
+
+        // Submeter o Formulário de Autenticação
         document.getElementById('auth-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            esconderMensagens();
+            limparMsgs();
 
             const email = document.getElementById('email').value;
             const senha = document.getElementById('senha').value;
@@ -158,37 +346,46 @@
             const msgSucesso = document.getElementById('msg-sucesso');
 
             if (modoCriarConta) {
-                // Criar Novo Utilizador no Firebase
                 auth.createUserWithEmailAndPassword(email, senha)
-                    .then((userCredential) => {
-                        msgSucesso.innerText = "Conta criada com sucesso! A redirecionar...";
+                    .then((res) => {
+                        msgSucesso.innerText = "Conta criada com sucesso!";
                         msgSucesso.style.display = 'block';
                         setTimeout(() => {
-                            window.location.href = "painel.html";
-                        }, 1500);
+                            if (linkPendente) {
+                                window.open(linkPendente, '_blank');
+                                linkPendente = "";
+                            }
+                        }, 1000);
                     })
-                    .catch((error) => {
-                        msgErro.innerText = "Erro ao criar conta: " + error.message;
+                    .catch((err) => {
+                        msgErro.innerText = "Erro: " + err.message;
                         msgErro.style.display = 'block';
                     });
             } else {
-                // Fazer Login no Firebase
                 auth.signInWithEmailAndPassword(email, senha)
-                    .then((userCredential) => {
-                        msgSucesso.innerText = "Login efetuado! A entrar...";
+                    .then((res) => {
+                        msgSucesso.innerText = "Login efetuado com sucesso!";
                         msgSucesso.style.display = 'block';
                         setTimeout(() => {
-                            window.location.href = "painel.html";
-                        }, 1500);
+                            if (linkPendente) {
+                                window.open(linkPendente, '_blank');
+                                linkPendente = "";
+                            }
+                        }, 1000);
                     })
-                    .catch((error) => {
-                        msgErro.innerText = "Email ou palavra-passe incorretos!";
+                    .catch((err) => {
+                        msgErro.innerText = "E-mail ou palavra-passe incorretos!";
                         msgErro.style.display = 'block';
                     });
             }
         });
-    </script>
 
+        function fazerLogout() {
+            auth.signOut().then(() => {
+                alert("Sessão terminada com sucesso.");
+            });
+        }
+    </script>
 </body>
 </html>
 
